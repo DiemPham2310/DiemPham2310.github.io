@@ -5,12 +5,96 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kim Toan Ca Mau</title>
   <style>
-    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
-    h1 { color: #008080; }
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    nav {
+      background-color: #2e7d32;
+      padding: 10px;
+    }
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    nav ul li {
+      position: relative;
+    }
+    nav ul li a {
+      display: block;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+    }
+    nav ul li a:hover {
+      background-color: #66bb6a;
+    }
+
+    .menu-dropdown {
+      display: none;
+      position: absolute;
+      background-color: white;
+      min-width: 200px;
+      top: 100%;
+      left: 0;
+      z-index: 1;
+    }
+    .menu-dropdown a {
+      color: black;
+      padding: 10px 20px;
+      display: block;
+    }
+    .menu-dropdown a:hover {
+      background-color: #eee;
+    }
+    nav ul li:hover .menu-dropdown {
+      display: block;
+    }
+
+    main {
+      padding: 20px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
-  <h1>Kim Toán chào các bạn!</h1>
-  <p>Đây là web bán hàng nông sản</p>
+  <header>
+    <h1>Kim Toán chào các bạn!</h1>
+    <p>Đây là web bán hàng nông sản</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#">Chuyên mục</a>
+        <div class="menu-dropdown">
+          <a href="#">Rau củ quả</a>
+          <a href="#">Đồ khô</a>
+          <a href="#">Sản phẩm tươi sống</a>
+          <a href="#">Dược liệu</a>
+          <a href="#">Hạt giống</a>
+          <a href="#">Thực phẩm chế biến</a>
+          <a href="#">Khuyến mãi</a>
+        </div>
+      </li>
+      <li><a href="#">Trang chủ</a></li>
+      <li><a href="#">Giới thiệu</a></li>
+      <li><a href="#">Liên hệ</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h2>Chào mừng đến với cửa hàng Kim Toán</h2>
+    <p>Bán các sản phẩm nông sản sạch - tươi - ngon.</p>
+  </main>
 </body>
 </html>
