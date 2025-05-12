@@ -110,30 +110,30 @@
     <p>Đây là web bán hàng nông sản</p>
   </header>
 
-<nav>
+  <nav>
     <ul>
       <li><a href="#">Chuyên mục</a>
         <div class="menu-dropdown">
-          <a href="#">Rau củ quả</a>
-          <a href="#">Đồ khô</a>
-          <a href="#">Sản phẩm tươi sống</a>
-          <a href="#">Dược liệu</a>
-          <a href="#">Hạt giống</a>
-          <a href="#">Thực phẩm chế biến</a>
-          <a href="#">Khuyến mãi</a>
-          <!-- Thêm mục mắm tôm ở đây -->
-          <a href="#">Mắm Tôm - 140.000 VNĐ/kg</a>
+          <a href="#" onclick="showPrice('Rau củ quả', 'Giá: 50.000 VNĐ/kg')">Rau củ quả</a>
+          <a href="#" onclick="showPrice('Đồ khô', 'Giá: 120.000 VNĐ/kg')">Đồ khô</a>
+          <a href="#" onclick="showPrice('Sản phẩm tươi sống', 'Giá: 100.000 VNĐ/kg')">Sản phẩm tươi sống</a>
+          <a href="#" onclick="showPrice('Dược liệu', 'Giá: 200.000 VNĐ/kg')">Dược liệu</a>
+          <a href="#" onclick="showPrice('Hạt giống', 'Giá: 30.000 VNĐ/gói')">Hạt giống</a>
+          <a href="#" onclick="showPrice('Thực phẩm chế biến', 'Giá: 150.000 VNĐ/kg')">Thực phẩm chế biến</a>
+          <a href="#" onclick="showPrice('Khuyến mãi', 'Giá: Tùy theo sản phẩm')">Khuyến mãi</a>
+          <a href="#" onclick="showPrice('Mắm Tôm', 'Giá: 140.000 VNĐ/kg')">Mắm Tôm</a>
         </div>
       </li>
       <li><a href="#">Trang chủ</a></li>
       <li><a href="#">Giới thiệu</a></li>
       <li><a href="#">Liên hệ</a></li>
     </ul>
-</nav>
+  </nav>
 
   <main>
     <h2>Chào mừng đến với cửa hàng Hoàng Hạ</h2>
     <p>Bán các sản phẩm nông sản sạch - tươi - ngon.</p>
+    <p id="productPrice">Chọn một chuyên mục để xem giá sản phẩm.</p>
   </main>
 
   <div class="chat-container">
@@ -145,6 +145,10 @@
   </div>
 
   <script>
+    function showPrice(name, price) {
+      document.getElementById("productPrice").textContent = name + ": " + price;
+    }
+
     function sendMessage() {
       const message = document.getElementById("message").value.trim();
       const response = document.getElementById("chatResponse");
@@ -157,7 +161,6 @@
 
       // 👉 Thay URL dưới đây bằng webhook của bạn từ Google Apps Script
       const url = "https://script.google.com/macros/s/AKfycbzqJQZPddWOGcHHLpdMPxRXD17CyyUFLA1DeeiOLKrRP0qeRGqLicqtu2Z4rKaMzDLa/exec";
-
 
       const formData = new FormData();
       formData.append("message", message);
