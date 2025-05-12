@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cam Tien Ca Mau</title>
+  <title>Hoang Ha Ca Mau</title>
   <style>
     body {
       font-family: sans-serif;
@@ -39,7 +39,6 @@
     nav ul li a:hover {
       background-color: #66bb6a;
     }
-
     .menu-dropdown {
       display: none;
       position: absolute;
@@ -64,6 +63,44 @@
     main {
       padding: 20px;
       text-align: center;
+    }
+
+    .chat-container {
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 2px solid #4CAF50;
+      border-radius: 10px;
+      background-color: #f9f9f9;
+    }
+    .chat-container h3 {
+      margin-top: 0;
+      color: #2e7d32;
+    }
+    .chat-container textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      resize: none;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: inherit;
+    }
+    .chat-container button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .chat-container button:hover {
+      background-color: #45a049;
+    }
+    .chat-response {
+      margin-top: 10px;
+      color: green;
     }
   </style>
 </head>
@@ -96,5 +133,46 @@
     <h2>Chào mừng đến với cửa hàng Hoàng Hạ</h2>
     <p>Bán các sản phẩm nông sản sạch - tươi - ngon.</p>
   </main>
+
+  <div class="chat-container">
+    <h3>Gửi tin nhắn cho chúng tôi</h3>
+    <textarea id="message" placeholder="Nhập tin nhắn của bạn tại đây..."></textarea>
+    <br />
+    <button onclick="sendMessage()">Gửi tin nhắn</button>
+    <p class="chat-response" id="chatResponse"></p>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const message = document.getElementById("message").value.trim();
+      const response = document.getElementById("chatResponse");
+
+      if (message === "") {
+        response.style.color = "red";
+        response.textContent = "Vui lòng nhập nội dung tin nhắn!";
+        return;
+      }
+
+      // 👉 Thay URL dưới đây bằng webhook của bạn từ Google Apps Script
+      const url = "https://script.google.com/macros/s/AKfycbzqJQZPddWOGcHHLpdMPxRXD17CyyUFLA1DeeiOLKrRP0qeRGqLicqtu2Z4rKaMzDLa/exec";
+
+      const formData = new FormData();
+      formData.append("message", message);
+
+      fetch(url, {
+        method: "POST",
+        body: formData,
+      })
+      .then(() => {
+        response.style.color = "green";
+        response.textContent = "Tin nhắn đã được gửi và lưu thành công!";
+        document.getElementById("message").value = "";
+      })
+      .catch(() => {
+        response.style.color = "red";
+        response.textContent = "Có lỗi xảy ra. Vui lòng thử lại sau!";
+      });
+    }
+  </script>
 </body>
 </html>
