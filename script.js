@@ -81,8 +81,10 @@ function updateCartDisplay() {
   const cartContainer = document.getElementById("cartItems");
   cartContainer.innerHTML = "";
 
+  let content = "";
+
   if (cart.length === 0) {
-    cartContainer.innerHTML = "<p>Giỏ hàng đang trống.</p>";
+    content += "<p>Giỏ hàng đang trống.</p>";
   } else {
     let total = 0;
 
@@ -90,35 +92,29 @@ function updateCartDisplay() {
       const itemTotal = item.price * item.quantity;
       total += itemTotal;
 
-      const itemDiv = document.createElement("div");
-      itemDiv.style.marginBottom = "5px";
-      itemDiv.innerHTML = `
-        ${item.name} - SL: ${item.quantity} - Thành tiền: ${itemTotal.toLocaleString()} VNĐ
-        <button onclick="removeFromCart(${item.id})" style="margin-left: 10px; padding: 3px 6px; font-size: 12px;">🗑️ Xóa</button>
+      content += `
+        <div style="margin-bottom: 5px;">
+          ${item.name} - SL: ${item.quantity} - Thành tiền: ${itemTotal.toLocaleString()} VNĐ
+          <button onclick="removeFromCart(${item.id})">🗑️ Xóa</button>
+        </div>
       `;
-      cartContainer.appendChild(itemDiv);
     });
 
-    const totalDiv = document.createElement("div");
-    totalDiv.style.fontWeight = "bold";
-    totalDiv.style.marginTop = "10px";
-    totalDiv.style.color = "#d32f2f";
-    totalDiv.textContent = `🧾 Tổng tiền: ${total.toLocaleString()} VNĐ`;
-    cartContainer.appendChild(totalDiv);
-
-    const clearBtn = document.createElement("button");
-    clearBtn.textContent = "🔄 Làm mới giỏ hàng";
-    clearBtn.style.marginTop = "10px";
-    clearBtn.style.backgroundColor = "#4CAF50";
-    clearBtn.style.color = "#fff";
-    clearBtn.style.padding = "8px 16px";
-    clearBtn.style.border = "none";
-    clearBtn.style.borderRadius = "5px";
-    clearBtn.style.cursor = "pointer";
-    clearBtn.onclick = clearCart;
-    cartContainer.appendChild(clearBtn);
+    content += `<div style="font-weight:bold; margin-top:10px; color:#d32f2f;">
+      🧾 Tổng tiền: ${total.toLocaleString()} VNĐ
+    </div>`;
   }
+
+  // Nút làm mới luôn hiển thị
+  content += `
+    <button onclick="clearCart()" style="margin-top: 10px; background-color: #4CAF50; color: #fff; padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer;">
+      🔄 Làm mới giỏ hàng
+    </button>
+  `;
+
+  cartContainer.innerHTML = content;
 }
+
 
 function removeFromCart(productId) {
   const product = products.find(p => p.id === productId);
