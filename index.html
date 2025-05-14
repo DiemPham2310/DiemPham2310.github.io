@@ -225,16 +225,29 @@
     <p>Bán các sản phẩm nông sản sạch - tươi - ngon.</p>
     <p id="productPrice">Chọn một chuyên mục để xem giá sản phẩm.</p>
     <div class="product-grid">
-     <div class="product-card">
+    <div class="product-card">
       <img src="https://i.postimg.cc/Rhg75tLV/MAM-CA-SON.jpg" alt="Mắm cá sơn">
       <div class="product-name">Mắm cá sơn</div>
       <div class="product-price">100.000 VNĐ/kg</div>
-      <div class="product-stock">Còn lại: 20 sản phẩm</div>
+      <div id="stock-1" class="product-stock">Còn lại: 20 sản phẩm</div>
+      <button onclick="addToCart(1)">Thêm vào giỏ</button>
+      <button onclick="alert('Vui lòng liên hệ: 0944.41.06.41 để đặt hàng')">Mua ngay</button>
+    </div>
+    <div class="product-card">
+      <img src="https://i.postimg.cc/hjfxWhTR/S-p-ong.jpg" alt="Mật ong rừng (Ong Mật)">
+      <div class="product-name">Mật ong rừng (Ong Mật)</div>
+      <div class="product-price">450.000 VNĐ/1 lít</div>
+      <div id="stock-1" class="product-stock">Còn lại: 10 sản phẩm</div>
+      <button onclick="addToCart(1)">Thêm vào giỏ</button>
+      <button onclick="alert('Vui lòng liên hệ: 0944.41.06.41 để đặt hàng')">Mua ngay</button>
     </div>
 
 
-
       <!-- Bạn có thể thêm nhiều sản phẩm khác tương tự ở đây -->
+    </div>
+      <div class="chat-container">
+        <h3>🛒 Giỏ hàng của bạn</h3>
+        <div id="cartItems"></div>
     </div>
 
   </main>
@@ -284,4 +297,83 @@
     }
   </script>
 </body>
+<script>
+  // Danh sách sản phẩm (mỗi sản phẩm nên có ID riêng để tiện quản lý)
+  const products = [
+    {
+      id: 1,
+      name: "Mắm Cá Sặc",
+      price: 140000,
+      stock: 10
+    },
+    {
+      id: 2,
+      name: "Khô Cá Lù Đù",
+      price: 130000,
+      stock: 8
+    },
+    // Thêm sản phẩm khác tại đây...
+  ];
+
+  // Giỏ hàng tạm thời
+  let cart = [];
+
+  function addToCart(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    if (product.stock > 0) {
+      // Trừ số lượng
+      product.stock -= 1;
+
+      // Kiểm tra sản phẩm đã có trong giỏ chưa
+      const cartItem = cart.find(item => item.id === productId);
+      if (cartItem) {
+        cartItem.quantity += 1;
+      } else {
+        cart.push({ ...product, quantity: 1 });
+      }
+
+      // Cập nhật giao diện
+      updateProductDisplay();
+      updateCartDisplay();
+    } else {
+      alert("Sản phẩm đã hết hàng!");
+    }
+  }
+
+  function updateProductDisplay() {
+    products.forEach(product => {
+      const stockElement = document.getElementById(`stock-${product.id}`);
+      if (stockElement) {
+        stockElement.textContent = `Còn lại: ${product.stock}`;
+      }
+    });
+  }
+
+  function updateCartDisplay() {
+    const cartContainer = document.getElementById("cartItems");
+    cartContainer.innerHTML = "";
+
+    if (cart.length === 0) {
+      cartContainer.innerHTML = "<p>Giỏ hàng đang trống.</p>";
+    } else {
+      cart.forEach(item => {
+        const div = document.createElement("div");
+        div.textContent = `${item.name} - SL: ${item.quantity}`;
+        cartContainer.appendChild(div);
+      });
+    }
+  }
+
+  // Khởi tạo sản phẩm khi load trang
+  document.addEventListener("DOMContentLoaded", () => {
+    updateProductDisplay();
+  });
+  function showPrice(productName, price) {
+    document.getElementById("productPrice").innerHTML = productName + ": " + price;
+  }
+
+</script>
+
 </html>
