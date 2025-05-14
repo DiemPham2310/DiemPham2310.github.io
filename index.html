@@ -191,6 +191,7 @@
     <h1>Hoàng Hạ Cà Mau chào các bạn!</h1>
     <p>Chuyên bán các mặt hàng nông sản sạch tại CÀ MAU, 100% nuôi tự nhiên</p>
   </header>
+
   <nav>
     <ul>
       <li><a href="#">Chuyên mục</a>
@@ -219,80 +220,155 @@
   <main>
     <h2>Chào mừng đến với cửa hàng Hoàng Hạ</h2>
     <p>Bán các sản phẩm nông sản sạch - tươi - ngon.</p>
-
-    <div id="productPrice"></div>
-
-    <div class="chat-container">
-      <h3>Giỏ hàng</h3>
-      <div id="cartItems"></div>
-      <p><strong>Tổng tiền:</strong> <span id="totalPrice">0</span> VNĐ</p>
-
-      <h4>Thông tin đơn hàng</h4>
-      <input type="text" id="fullName" placeholder="Họ và Tên" style="width: 100%; margin-bottom: 10px; padding: 5px;"><br>
-      <input type="text" id="phone" placeholder="Số điện thoại" style="width: 100%; margin-bottom: 10px; padding: 5px;"><br>
-      <input type="text" id="address" placeholder="Địa chỉ" style="width: 100%; margin-bottom: 10px; padding: 5px;"><br>
-
-      <button onclick="confirmOrder()">Xác nhận đơn hàng</button>
-      <div class="chat-response" id="orderMessage"></div>
+    <p id="productPrice">Chọn một chuyên mục để xem giá sản phẩm.</p>
+    <div class="product-grid">
+    <div class="product-card">
+      <img src="https://i.postimg.cc/Rhg75tLV/MAM-CA-SON.jpg" alt="Mắm cá sơn">
+      <div class="product-name">Mắm cá sơn</div>
+      <div class="product-price">100.000 VNĐ/kg</div>
+      <div id="stock-1" class="product-stock">Còn lại: 20 sản phẩm</div>
+      <button onclick="addToCart(1)">Thêm vào giỏ</button>
+      <button onclick="alert('Vui lòng liên hệ: 0944.41.06.41 để đặt hàng')">Mua ngay</button>
     </div>
+    <div class="product-card">
+      <img src="https://i.postimg.cc/hjfxWhTR/S-p-ong.jpg" alt="Mật ong rừng (Ong Mật)">
+      <div class="product-name">Mật ong rừng (Ong Mật)</div>
+      <div class="product-price">450.000 VNĐ/1 lít</div>
+      <div id="stock-2" class="product-stock">Còn lại: 10 sản phẩm</div>
+      <button onclick="addToCart(2)">Thêm vào giỏ</button>
+      <button onclick="alert('Vui lòng liên hệ: 0944.41.06.41 để đặt hàng')">Mua ngay</button>
+    </div>
+
+
+      <!-- Bạn có thể thêm nhiều sản phẩm khác tương tự ở đây -->
+    </div>
+      <div class="chat-container">
+        <h3>🛒 Giỏ hàng của bạn</h3>
+        <div id="cartItems"></div>
+    </div>
+
   </main>
 
+  <div class="chat-container">
+    <h3>Vui lòng để lại Số điện thoại, Tên, Địa chỉ, Tên loại hàng, Số lượng</h3>
+    <textarea id="message" placeholder="Nhập tin nhắn của bạn tại đây..."></textarea>
+    <br />
+    <button onclick="sendMessage()">Gửi tin nhắn</button>
+    <p class="chat-response" id="chatResponse"></p>
+  </div>
+
   <script>
-    const cart = [];
-
-    function showPrice(name, priceText) {
-      const price = parseInt(priceText.replace(/[^0-9]/g, ''));
-      document.getElementById("productPrice").innerHTML = `
-        <div>
-          <h3>${name}</h3>
-          <p>${priceText}</p>
-          <button onclick="addToCart('${name}', ${price})">Thêm vào giỏ hàng</button>
-        </div>
-      `;
+    function showPrice(name, price) {
+      document.getElementById("productPrice").textContent = name + ": " + price;
     }
 
-    function addToCart(productName, price) {
-      cart.push({ name: productName, price });
-      renderCart();
-    }
+    function sendMessage() {
+      const message = document.getElementById("message").value.trim();
+      const response = document.getElementById("chatResponse");
 
-    function renderCart() {
-      const cartItems = document.getElementById("cartItems");
-      cartItems.innerHTML = "";
-      let total = 0;
+      if (message === "") {
+        response.style.color = "red";
+        response.textContent = "Vui lòng nhập nội dung tin nhắn!";
+        return;
+      }
 
-      cart.forEach((item, index) => {
-        total += item.price;
-        const p = document.createElement("p");
-        p.textContent = `${item.name} - ${item.price.toLocaleString()} VNĐ`;
-        cartItems.appendChild(p);
+      // 👉 Thay URL dưới đây bằng webhook của bạn từ Google Apps Script
+      const url = "https://script.google.com/macros/s/AKfycbzqJQZPddWOGcHHLpdMPxRXD17CyyUFLA1DeeiOLKrRP0qeRGqLicqtu2Z4rKaMzDLa/exec";
+
+      const formData = new FormData();
+      formData.append("message", message);
+
+      fetch(url, {
+        method: "POST",
+        body: formData,
+      })
+      .then(() => {
+        response.style.color = "green";
+        response.textContent = "Tin nhắn đã được gửi và lưu thành công!";
+        document.getElementById("message").value = "";
+      })
+      .catch(() => {
+        response.style.color = "red";
+        response.textContent = "Có lỗi xảy ra. Vui lòng thử lại sau!";
       });
-
-      document.getElementById("totalPrice").textContent = total.toLocaleString();
-    }
-
-    function confirmOrder() {
-      const name = document.getElementById("fullName").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-      const address = document.getElementById("address").value.trim();
-      const messageDiv = document.getElementById("orderMessage");
-
-      if (!name || !phone || !address) {
-        messageDiv.textContent = "Vui lòng nhập đầy đủ thông tin đơn hàng!";
-        messageDiv.style.color = "red";
-        return;
-      }
-
-      if (cart.length === 0) {
-        messageDiv.textContent = "Giỏ hàng đang trống!";
-        messageDiv.style.color = "red";
-        return;
-      }
-
-      messageDiv.textContent = `Cảm ơn ${name}! Đơn hàng của bạn đã được xác nhận.`;
-      messageDiv.style.color = "green";
-      // Sau này có thể thêm chức năng gửi đơn hàng qua server tại đây.
     }
   </script>
 </body>
+<script>
+  // Danh sách sản phẩm (mỗi sản phẩm nên có ID riêng để tiện quản lý)
+  const products = [
+    {
+      id: 1,
+      name: "Mắm Cá Sơn",
+      price: 100000,
+      stock: 20
+    },
+    {
+      id: 2,
+      name: "Mật Ong rừng (Ong mật)",
+      price: 450000,
+      stock: 10
+    },
+    // Thêm sản phẩm khác tại đây...
+  ];
+
+  // Giỏ hàng tạm thời
+  let cart = [];
+
+  function addToCart(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    if (product.stock > 0) {
+      // Trừ số lượng
+      product.stock -= 1;
+
+      // Kiểm tra sản phẩm đã có trong giỏ chưa
+      const cartItem = cart.find(item => item.id === productId);
+      if (cartItem) {
+        cartItem.quantity += 1;
+      } else {
+        cart.push({ ...product, quantity: 1 });
+      }
+
+      // Cập nhật giao diện
+      updateProductDisplay();
+      updateCartDisplay();
+    } else {
+      alert("Sản phẩm đã hết hàng!");
+    }
+  }
+
+  function updateProductDisplay() {
+    products.forEach(product => {
+      const stockElement = document.getElementById(stock-${product.id});
+      if (stockElement) {
+        stockElement.textContent = Còn lại: ${product.stock};
+      }
+    });
+  }
+
+  function updateCartDisplay() {
+    const cartContainer = document.getElementById("cartItems");
+    cartContainer.innerHTML = "";
+
+    if (cart.length === 0) {
+      cartContainer.innerHTML = "<p>Giỏ hàng đang trống.</p>";
+    } else {
+      cart.forEach(item => {
+        const div = document.createElement("div");
+        div.textContent = ${item.name} - SL: ${item.quantity};
+        cartContainer.appendChild(div);
+      });
+    }
+  }
+
+  // Khởi tạo sản phẩm khi load trang
+  document.addEventListener("DOMContentLoaded", () => {
+    updateProductDisplay();
+  });
+  function showPrice(productName, price) {
+    document.getElementById("productPrice").innerHTML = productName + ": " + price;
+  }
+</script>
 </html>
