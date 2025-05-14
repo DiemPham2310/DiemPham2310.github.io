@@ -87,11 +87,18 @@ function updateCartDisplay() {
     let total = 0;
 
     cart.forEach(item => {
-      const div = document.createElement("div");
       const itemTotal = item.price * item.quantity;
       total += itemTotal;
-      div.textContent = `${item.name} - SL: ${item.quantity} - Thành tiền: ${itemTotal.toLocaleString()} VNĐ`;
-      cartContainer.appendChild(div);
+
+      const itemDiv = document.createElement("div");
+      itemDiv.style.marginBottom = "5px";
+
+      itemDiv.innerHTML = `
+        ${item.name} - SL: ${item.quantity} - Thành tiền: ${itemTotal.toLocaleString()} VNĐ
+        <button style="margin-left:10px" onclick="removeFromCart(${item.id})">🗑️ Xóa</button>
+      `;
+
+      cartContainer.appendChild(itemDiv);
     });
 
     const totalDiv = document.createElement("div");
@@ -100,9 +107,48 @@ function updateCartDisplay() {
     totalDiv.style.color = "#d32f2f";
     totalDiv.textContent = `🧾 Tổng tiền: ${total.toLocaleString()} VNĐ`;
     cartContainer.appendChild(totalDiv);
+
+    const clearBtn = document.createElement("button");
+    clearBtn.textContent = "🔄 Làm mới giỏ hàng";
+    clearBtn.style.marginTop = "10px";
+    clearBtn.style.backgroundColor = "#d32f2f";
+    clearBtn.style.color = "#fff";
+    clearBtn.style.padding = "8px 12px";
+    clearBtn.style.border = "none";
+    clearBtn.style.borderRadius = "5px";
+    clearBtn.style.cursor = "pointer";
+    clearBtn.onclick = clearCart;
+    cartContainer.appendChild(clearBtn);
+  }
+}
+// Xóa từng sản phẩm khỏi giỏ
+function removeFromCart(productId) {
+  const product = products.find(p => p.id === productId);
+  const cartItemIndex = cart.findIndex(item => item.id === productId);
+
+  if (cartItemIndex !== -1) {
+    const removedItem = cart[cartItemIndex];
+    product.stock += removedItem.quantity;
+    cart.splice(cartItemIndex, 1);
+    updateProductDisplay();
+    updateCartDisplay();
   }
 }
 
+// Làm mới toàn bộ giỏ hàng
+function clearCart() {
+  // Trả lại số lượng sản phẩm
+  cart.forEach(item => {
+    const product = products.find(p => p.id === item.id);
+    if (product) {
+      product.stock += item.quantity;
+    }
+  });
+
+  cart = [];
+  updateProductDisplay();
+  updateCartDisplay();
+}
 
 // Khi trang được tải xong
 document.addEventListener("DOMContentLoaded", function () {
