@@ -97,10 +97,12 @@ function updateCartDisplay() {
     const totalDiv = document.createElement("div");
     totalDiv.style.fontWeight = "bold";
     totalDiv.style.marginTop = "10px";
+    totalDiv.style.color = "#d32f2f";
     totalDiv.textContent = `🧾 Tổng tiền: ${total.toLocaleString()} VNĐ`;
     cartContainer.appendChild(totalDiv);
   }
 }
+
 
 // Khi trang được tải xong
 document.addEventListener("DOMContentLoaded", function () {
