@@ -1,3 +1,38 @@
+
+    function showPrice(name, price) {
+      document.getElementById("productPrice").textContent = name + ": " + price;
+    }
+
+    function sendMessage() {
+      const message = document.getElementById("message").value.trim();
+      const response = document.getElementById("chatResponse");
+
+      if (message === "") {
+        response.style.color = "red";
+        response.textContent = "Vui lòng nhập nội dung tin nhắn!";
+        return;
+      }
+
+      // 👉 Thay URL dưới đây bằng webhook của bạn từ Google Apps Script
+      const url = "https://script.google.com/macros/s/AKfycbzqJQZPddWOGcHHLpdMPxRXD17CyyUFLA1DeeiOLKrRP0qeRGqLicqtu2Z4rKaMzDLa/exec";
+
+      const formData = new FormData();
+      formData.append("message", message);
+
+      fetch(url, {
+        method: "POST",
+        body: formData,
+      })
+      .then(() => {
+        response.style.color = "green";
+        response.textContent = "Tin nhắn đã được gửi và lưu thành công!";
+        document.getElementById("message").value = "";
+      })
+      .catch(() => {
+        response.style.color = "red";
+        response.textContent = "Có lỗi xảy ra. Vui lòng thử lại sau!";
+      });
+    }
 function showPrice(name, price) {
       document.getElementById("productPrice").textContent = name + ": " + price;
     }
@@ -32,9 +67,7 @@ function showPrice(name, price) {
         response.textContent = "Có lỗi xảy ra. Vui lòng thử lại sau!";
       });
     }
-  </script>
-</body>
-<script>
+
   // Danh sách sản phẩm (mỗi sản phẩm nên có ID riêng để tiện quản lý)
   const products = [
     {
