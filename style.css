@@ -1,0 +1,131 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px;
+  text-align: center;
+}
+nav {
+  background-color: #2e7d32;
+  padding: 10px;
+}
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+nav ul li {
+  position: relative;
+}
+nav ul li a {
+  display: block;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+nav ul li a:hover {
+  background-color: #66bb6a;
+}
+.menu-dropdown {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 200px;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+}
+.menu-dropdown a {
+  color: black;
+  padding: 10px 20px;
+  display: block;
+}
+.menu-dropdown a:hover {
+  background-color: #eee;
+}
+nav ul li:hover .menu-dropdown {
+  display: block;
+}
+main {
+  padding: 20px;
+  text-align: center;
+}
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+.product-card {
+  width: 200px;
+  border: 2px solid #4CAF50;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: #fff;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.product-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.product-name {
+  font-weight: bold;
+  margin: 10px 0 5px;
+  color: #2e7d32;
+}
+.product-price {
+  color: #d32f2f;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+.product-stock {
+  color: #555;
+  font-size: 14px;
+}
+.chat-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 2px solid #4CAF50;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+.chat-container h3 {
+  margin-top: 0;
+  color: #2e7d32;
+}
+.chat-container textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  resize: none;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: inherit;
+}
+.chat-container button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.chat-container button:hover {
+  background-color: #45a049;
+}
+.chat-response {
+  margin-top: 10px;
+  color: green;
+}
