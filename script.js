@@ -92,12 +92,10 @@ function updateCartDisplay() {
 
       const itemDiv = document.createElement("div");
       itemDiv.style.marginBottom = "5px";
-
       itemDiv.innerHTML = `
         ${item.name} - SL: ${item.quantity} - Thành tiền: ${itemTotal.toLocaleString()} VNĐ
-        <button style="margin-left:10px" onclick="removeFromCart(${item.id})">🗑️ Xóa</button>
+        <button onclick="removeFromCart(${item.id})" style="margin-left: 10px; padding: 3px 6px; font-size: 12px;">🗑️ Xóa</button>
       `;
-
       cartContainer.appendChild(itemDiv);
     });
 
@@ -111,9 +109,9 @@ function updateCartDisplay() {
     const clearBtn = document.createElement("button");
     clearBtn.textContent = "🔄 Làm mới giỏ hàng";
     clearBtn.style.marginTop = "10px";
-    clearBtn.style.backgroundColor = "#d32f2f";
+    clearBtn.style.backgroundColor = "#4CAF50";
     clearBtn.style.color = "#fff";
-    clearBtn.style.padding = "8px 12px";
+    clearBtn.style.padding = "8px 16px";
     clearBtn.style.border = "none";
     clearBtn.style.borderRadius = "5px";
     clearBtn.style.cursor = "pointer";
@@ -121,34 +119,30 @@ function updateCartDisplay() {
     cartContainer.appendChild(clearBtn);
   }
 }
-// Xóa từng sản phẩm khỏi giỏ
+
 function removeFromCart(productId) {
   const product = products.find(p => p.id === productId);
-  const cartItemIndex = cart.findIndex(item => item.id === productId);
+  const cartIndex = cart.findIndex(item => item.id === productId);
 
-  if (cartItemIndex !== -1) {
-    const removedItem = cart[cartItemIndex];
+  if (cartIndex !== -1) {
+    const removedItem = cart[cartIndex];
     product.stock += removedItem.quantity;
-    cart.splice(cartItemIndex, 1);
+    cart.splice(cartIndex, 1);
     updateProductDisplay();
     updateCartDisplay();
   }
 }
 
-// Làm mới toàn bộ giỏ hàng
 function clearCart() {
-  // Trả lại số lượng sản phẩm
   cart.forEach(item => {
     const product = products.find(p => p.id === item.id);
-    if (product) {
-      product.stock += item.quantity;
-    }
+    if (product) product.stock += item.quantity;
   });
-
   cart = [];
   updateProductDisplay();
   updateCartDisplay();
 }
+
 
 // Khi trang được tải xong
 document.addEventListener("DOMContentLoaded", function () {
