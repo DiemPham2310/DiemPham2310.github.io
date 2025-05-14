@@ -21,22 +21,27 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       transition: transform 0.2s;
     }
+
     .product-item:hover {
       transform: scale(1.03);
     }
+
     .product-item img {
       width: 100%;
       height: 150px;
       object-fit: cover;
     }
+
     .product-info {
       padding: 10px;
       text-align: left;
     }
+
     .product-info h4 {
       margin: 0 0 5px;
       font-size: 16px;
     }
+
     .product-info p {
       margin: 4px 0;
       font-size: 14px;
@@ -70,11 +75,13 @@
       margin: 10px 0 5px;
       color: #2e7d32;
     }
+
     .product-price {
       color: #d32f2f;
       font-size: 16px;
       margin-bottom: 5px;
     }
+
     .product-stock {
       color: #555;
       font-size: 14px;
@@ -178,24 +185,18 @@
       color: green;
     }
   </style>
-  <script>
-    function showPrice(product, price) {
-      document.getElementById('productPrice').innerText = product + ' - ' + price;
-    }
-  </script>
 </head>
 <body>
   <header>
     <h1>Hoàng Hạ Cà Mau chào các bạn!</h1>
     <p>Chuyên bán các mặt hàng nông sản sạch tại CÀ MAU, 100% nuôi tự nhiên</p>
   </header>
-
   <nav>
     <ul>
       <li><a href="#">Chuyên mục</a>
         <div class="menu-dropdown">
           <a href="#" onclick="showPrice('Tôm khô', 'Giá: 1.400.000 VNĐ/kg')">Tôm khô</a>
-          <a href="#" onclick="showPrice('Khô Cá Lù Đù trung nhỏ', 'Giá: 130.000 VNĐ/kg')">Khô Cá Lù Đù trung nhỏ</a>
+          <a href="#" onclick="showPrice('Khô Cá Lù Đù trung nhỏ', 'Giá: 130.000 VNĐ/kg')">Khô Cá Lù Đù</a>
           <a href="#" onclick="showPrice('Khô Cá Lù Đù', 'Giá: 150.000 VNĐ/kg')">Khô Cá Lù Đù</a>
           <a href="#" onclick="showPrice('Khô Cá Phèn', 'Giá: 150.000 VNĐ/kg')">Khô Cá Phèn</a>
           <a href="#" onclick="showPrice('Khô Bổi lạt', 'Giá: 250.000 VNĐ/kg')">Khô Bổi lạt</a>
@@ -218,34 +219,80 @@
   <main>
     <h2>Chào mừng đến với cửa hàng Hoàng Hạ</h2>
     <p>Bán các sản phẩm nông sản sạch - tươi - ngon.</p>
-    <p id="productPrice">Chọn một chuyên mục để xem giá sản phẩm.</p>
-    <div class="product-grid">
-      <div class="product-card">
-        <img src="https://i.postimg.cc/Rhg75tLV/MAM-CA-SON.jpg" alt="Mắm cá sơn">
-        <div class="product-name">Mắm cá sơn</div>
-        <div class="product-price">100.000 VNĐ/kg</div>
-      </div>
-      <div class="product-card">
-        <img src="https://i.postimg.cc/y6rMD6Bf/kho-boi.jpg" alt="Khô bổi">
-        <div class="product-name">Khô bổi</div>
-        <div class="product-price">250.000 VNĐ/kg</div>
-      </div>
-      <div class="product-card">
-        <img src="https://i.postimg.cc/vTZgSmt9/kho-du.jpg" alt="Khô Đù">
-        <div class="product-name">Khô đù</div>
-        <div class="product-price">150.000 VNĐ/kg</div>
-      </div>
+
+    <div id="productPrice"></div>
+
+    <div class="chat-container">
+      <h3>Giỏ hàng</h3>
+      <div id="cartItems"></div>
+      <p><strong>Tổng tiền:</strong> <span id="totalPrice">0</span> VNĐ</p>
+
+      <h4>Thông tin đơn hàng</h4>
+      <input type="text" id="fullName" placeholder="Họ và Tên" style="width: 100%; margin-bottom: 10px; padding: 5px;"><br>
+      <input type="text" id="phone" placeholder="Số điện thoại" style="width: 100%; margin-bottom: 10px; padding: 5px;"><br>
+      <input type="text" id="address" placeholder="Địa chỉ" style="width: 100%; margin-bottom: 10px; padding: 5px;"><br>
+
+      <button onclick="confirmOrder()">Xác nhận đơn hàng</button>
+      <div class="chat-response" id="orderMessage"></div>
     </div>
   </main>
 
-  <div class="chat-container">
-    <h3>Hỏi đáp về sản phẩm</h3>
-    <textarea placeholder="Viết câu hỏi của bạn tại đây..."></textarea>
-    <button>Gửi</button>
-    <div class="chat-response">Chúng tôi sẽ phản hồi bạn sớm nhất có thể!</div>
-  </div>
+  <script>
+    const cart = [];
+
+    function showPrice(name, priceText) {
+      const price = parseInt(priceText.replace(/[^0-9]/g, ''));
+      document.getElementById("productPrice").innerHTML = `
+        <div>
+          <h3>${name}</h3>
+          <p>${priceText}</p>
+          <button onclick="addToCart('${name}', ${price})">Thêm vào giỏ hàng</button>
+        </div>
+      `;
+    }
+
+    function addToCart(productName, price) {
+      cart.push({ name: productName, price });
+      renderCart();
+    }
+
+    function renderCart() {
+      const cartItems = document.getElementById("cartItems");
+      cartItems.innerHTML = "";
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        total += item.price;
+        const p = document.createElement("p");
+        p.textContent = `${item.name} - ${item.price.toLocaleString()} VNĐ`;
+        cartItems.appendChild(p);
+      });
+
+      document.getElementById("totalPrice").textContent = total.toLocaleString();
+    }
+
+    function confirmOrder() {
+      const name = document.getElementById("fullName").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const address = document.getElementById("address").value.trim();
+      const messageDiv = document.getElementById("orderMessage");
+
+      if (!name || !phone || !address) {
+        messageDiv.textContent = "Vui lòng nhập đầy đủ thông tin đơn hàng!";
+        messageDiv.style.color = "red";
+        return;
+      }
+
+      if (cart.length === 0) {
+        messageDiv.textContent = "Giỏ hàng đang trống!";
+        messageDiv.style.color = "red";
+        return;
+      }
+
+      messageDiv.textContent = `Cảm ơn ${name}! Đơn hàng của bạn đã được xác nhận.`;
+      messageDiv.style.color = "green";
+      // Sau này có thể thêm chức năng gửi đơn hàng qua server tại đây.
+    }
+  </script>
 </body>
 </html>
-
-
-
