@@ -113,4 +113,28 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+function updateCartDisplay() {
+  const cartContainer = document.getElementById("cartItems");
+  cartContainer.innerHTML = "";
+
+  if (cart.length === 0) {
+    cartContainer.innerHTML = "<p>Giỏ hàng đang trống.</p>";
+  } else {
+    let total = 0;
+
+    cart.forEach(item => {
+      const div = document.createElement("div");
+      const itemTotal = item.price * item.quantity;
+      total += itemTotal;
+      div.textContent = `${item.name} - SL: ${item.quantity} - Thành tiền: ${itemTotal.toLocaleString()} VNĐ`;
+      cartContainer.appendChild(div);
+    });
+
+    const totalDiv = document.createElement("div");
+    totalDiv.style.fontWeight = "bold";
+    totalDiv.style.marginTop = "10px";
+    totalDiv.textContent = `🧾 Tổng tiền: ${total.toLocaleString()} VNĐ`;
+    cartContainer.appendChild(totalDiv);
+  }
+}
 
