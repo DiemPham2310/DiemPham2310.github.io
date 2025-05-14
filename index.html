@@ -31,7 +31,7 @@
         <div class="product-price">100.000 VNĐ/kg</div>
         <div id="stock-1" class="product-stock">Còn lại: 20 sản phẩm</div>
         <button onclick="addToCart(1)">Thêm vào giỏ</button>
-        <button onclick="alert('Vui lòng liên hệ: 0944.41.06.41 để đặt hàng')">Mua ngay</button>
+        <button onclick="proceedToCheckout()">Mua ngay</button>
       </div>
       <div class="product-card">
         <img src="https://i.postimg.cc/hjfxWhTR/S-p-ong.jpg" alt="Mật ong rừng (Ong Mật)">
@@ -39,7 +39,7 @@
         <div class="product-price">450.000 VNĐ/1 lít</div>
         <div id="stock-2" class="product-stock">Còn lại: 10 sản phẩm</div>
         <button onclick="addToCart(2)">Thêm vào giỏ</button>
-        <button onclick="alert('Vui lòng liên hệ: 0944.41.06.41 để đặt hàng')">Mua ngay</button>
+        <button onclick="proceedToCheckout()">Mua ngay</button>
       </div>
     </div>
 
@@ -48,7 +48,6 @@
       <div id="cartItems"></div>
       <div id="totalPrice">Tổng tiền: 0 VNĐ</div>
     </div>
-
   </main>
 
   <div class="chat-container">
@@ -57,6 +56,24 @@
     <br />
     <button onclick="sendMessage()">Gửi tin nhắn</button>
     <p class="chat-response" id="chatResponse"></p>
+  </div>
+
+  <!-- Form đặt hàng -->
+  <div class="order-container" id="orderContainer" style="display: none;">
+    <h3>Thông tin đơn hàng của bạn</h3>
+    <div id="orderDetails"></div>
+    <p id="orderTotal">Tổng tiền: </p>
+    <label for="fullName">Họ và Tên:</label>
+    <input type="text" id="fullName" placeholder="Nhập họ và tên" required />
+    <br />
+    <label for="phone">Số điện thoại:</label>
+    <input type="text" id="phone" placeholder="Nhập số điện thoại" required />
+    <br />
+    <label for="address">Địa chỉ:</label>
+    <input type="text" id="address" placeholder="Nhập địa chỉ" required />
+    <br />
+    <button onclick="confirmOrder()">Xác nhận đơn hàng</button>
+    <p id="orderConfirmation"></p>
   </div>
 
   <script>
@@ -119,6 +136,43 @@
       updateProductDisplay();
     });
 
+    function proceedToCheckout() {
+      const orderContainer = document.getElementById("orderContainer");
+      orderContainer.style.display = "block";
+
+      const orderDetails = document.getElementById("orderDetails");
+      orderDetails.innerHTML = ""; // Xóa các thông tin cũ
+      cart.forEach(item => {
+        const div = document.createElement("div");
+        div.textContent = `${item.name} - SL: ${item.quantity} - Giá: ${item.price * item.quantity} VNĐ`;
+        orderDetails.appendChild(div);
+      });
+
+      let total = 0;
+      cart.forEach(item => {
+        total += item.price * item.quantity;
+      });
+
+      document.getElementById("orderTotal").textContent = "Tổng tiền: " + total.toLocaleString() + " VNĐ";
+    }
+
+    function confirmOrder() {
+      const fullName = document.getElementById("fullName").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const address = document.getElementById("address").value.trim();
+
+      if (!fullName || !phone || !address) {
+        document.getElementById("orderConfirmation").textContent = "Vui lòng điền đầy đủ thông tin!";
+        return;
+      }
+
+      document.getElementById("orderConfirmation").textContent = `Cảm ơn ${fullName}! Đơn hàng của bạn đã được xác nhận. Chúng tôi sẽ liên hệ qua số điện thoại ${phone} và gửi hàng đến địa chỉ ${address}.`;
+
+      cart = [];
+      updateCartDisplay();
+      document.getElementById("orderContainer").style.display = "none"; // Ẩn form sau khi xác nhận
+    }
+
     function sendMessage() {
       const message = document.getElementById("message").value.trim();
       const response = document.getElementById("chatResponse");
@@ -147,4 +201,5 @@
   </script>
 </body>
 </html>
+
 
