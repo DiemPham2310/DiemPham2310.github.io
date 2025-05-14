@@ -21,22 +21,27 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       transition: transform 0.2s;
     }
+
     .product-item:hover {
       transform: scale(1.03);
     }
+
     .product-item img {
       width: 100%;
       height: 150px;
       object-fit: cover;
     }
+
     .product-info {
       padding: 10px;
       text-align: left;
     }
+
     .product-info h4 {
       margin: 0 0 5px;
       font-size: 16px;
     }
+
     .product-info p {
       margin: 4px 0;
       font-size: 14px;
@@ -70,11 +75,13 @@
       margin: 10px 0 5px;
       color: #2e7d32;
     }
+
     .product-price {
       color: #d32f2f;
       font-size: 16px;
       margin-bottom: 5px;
     }
+
     .product-stock {
       color: #555;
       font-size: 14px;
@@ -178,11 +185,6 @@
       color: green;
     }
   </style>
-  <script>
-    function showPrice(product, price) {
-      document.getElementById('productPrice').innerText = product + ' - ' + price;
-    }
-  </script>
 </head>
 <body>
   <header>
@@ -195,7 +197,7 @@
       <li><a href="#">Chuyên mục</a>
         <div class="menu-dropdown">
           <a href="#" onclick="showPrice('Tôm khô', 'Giá: 1.400.000 VNĐ/kg')">Tôm khô</a>
-          <a href="#" onclick="showPrice('Khô Cá Lù Đù trung nhỏ', 'Giá: 130.000 VNĐ/kg')">Khô Cá Lù Đù trung nhỏ</a>
+          <a href="#" onclick="showPrice('Khô Cá Lù Đù trung nhỏ', 'Giá: 130.000 VNĐ/kg')">Khô Cá Lù Đù</a>
           <a href="#" onclick="showPrice('Khô Cá Lù Đù', 'Giá: 150.000 VNĐ/kg')">Khô Cá Lù Đù</a>
           <a href="#" onclick="showPrice('Khô Cá Phèn', 'Giá: 150.000 VNĐ/kg')">Khô Cá Phèn</a>
           <a href="#" onclick="showPrice('Khô Bổi lạt', 'Giá: 250.000 VNĐ/kg')">Khô Bổi lạt</a>
@@ -220,32 +222,153 @@
     <p>Bán các sản phẩm nông sản sạch - tươi - ngon.</p>
     <p id="productPrice">Chọn một chuyên mục để xem giá sản phẩm.</p>
     <div class="product-grid">
-      <div class="product-card">
-        <img src="https://i.postimg.cc/Rhg75tLV/MAM-CA-SON.jpg" alt="Mắm cá sơn">
-        <div class="product-name">Mắm cá sơn</div>
-        <div class="product-price">100.000 VNĐ/kg</div>
-      </div>
-      <div class="product-card">
-        <img src="https://i.postimg.cc/y6rMD6Bf/kho-boi.jpg" alt="Khô bổi">
-        <div class="product-name">Khô bổi</div>
-        <div class="product-price">250.000 VNĐ/kg</div>
-      </div>
-      <div class="product-card">
-        <img src="https://i.postimg.cc/vTZgSmt9/kho-du.jpg" alt="Khô Đù">
-        <div class="product-name">Khô đù</div>
-        <div class="product-price">150.000 VNĐ/kg</div>
-      </div>
+    <div class="product-card">
+      <img src="https://i.postimg.cc/Rhg75tLV/MAM-CA-SON.jpg" alt="Mắm cá sơn">
+      <div class="product-name">Mắm cá sơn</div>
+      <div class="product-price">100.000 VNĐ/kg</div>
+      <div id="stock-1" class="product-stock">Còn lại: 20 sản phẩm</div>
+      <button onclick="addToCart(1)">Thêm vào giỏ</button>
+      <button onclick="alert('Vui lòng liên hệ: 0944.41.06.41 để đặt hàng')">Mua ngay</button>
     </div>
+    <div class="product-card">
+      <img src="https://i.postimg.cc/hjfxWhTR/S-p-ong.jpg" alt="Mật ong rừng (Ong Mật)">
+      <div class="product-name">Mật ong rừng (Ong Mật)</div>
+      <div class="product-price">450.000 VNĐ/1 lít</div>
+      <div id="stock-2" class="product-stock">Còn lại: 10 sản phẩm</div>
+      <button onclick="addToCart(2)">Thêm vào giỏ</button>
+      <button onclick="alert('Vui lòng liên hệ: 0944.41.06.41 để đặt hàng')">Mua ngay</button>
+    </div>
+
+
+      <!-- Bạn có thể thêm nhiều sản phẩm khác tương tự ở đây -->
+    </div>
+      <div class="chat-container">
+        <h3>🛒 Giỏ hàng của bạn</h3>
+        <div id="cartItems"></div>
+    </div>
+
   </main>
 
   <div class="chat-container">
-    <h3>Hỏi đáp về sản phẩm</h3>
-    <textarea placeholder="Viết câu hỏi của bạn tại đây..."></textarea>
-    <button>Gửi</button>
-    <div class="chat-response">Chúng tôi sẽ phản hồi bạn sớm nhất có thể!</div>
+    <h3>Vui lòng để lại Số điện thoại, Tên, Địa chỉ, Tên loại hàng, Số lượng</h3>
+    <textarea id="message" placeholder="Nhập tin nhắn của bạn tại đây..."></textarea>
+    <br />
+    <button onclick="sendMessage()">Gửi tin nhắn</button>
+    <p class="chat-response" id="chatResponse"></p>
   </div>
+
+  <script>
+    function showPrice(name, price) {
+      document.getElementById("productPrice").textContent = name + ": " + price;
+    }
+
+    function sendMessage() {
+      const message = document.getElementById("message").value.trim();
+      const response = document.getElementById("chatResponse");
+
+      if (message === "") {
+        response.style.color = "red";
+        response.textContent = "Vui lòng nhập nội dung tin nhắn!";
+        return;
+      }
+
+      // 👉 Thay URL dưới đây bằng webhook của bạn từ Google Apps Script
+      const url = "https://script.google.com/macros/s/AKfycbzqJQZPddWOGcHHLpdMPxRXD17CyyUFLA1DeeiOLKrRP0qeRGqLicqtu2Z4rKaMzDLa/exec";
+
+      const formData = new FormData();
+      formData.append("message", message);
+
+      fetch(url, {
+        method: "POST",
+        body: formData,
+      })
+      .then(() => {
+        response.style.color = "green";
+        response.textContent = "Tin nhắn đã được gửi và lưu thành công!";
+        document.getElementById("message").value = "";
+      })
+      .catch(() => {
+        response.style.color = "red";
+        response.textContent = "Có lỗi xảy ra. Vui lòng thử lại sau!";
+      });
+    }
+  </script>
 </body>
+<script>
+  // Danh sách sản phẩm (mỗi sản phẩm nên có ID riêng để tiện quản lý)
+  const products = [
+    {
+      id: 1,
+      name: "Mắm Cá Sơn",
+      price: 100000,
+      stock: 20
+    },
+    {
+      id: 2,
+      name: "Mật Ong rừng (Ong mật)",
+      price: 450000,
+      stock: 10
+    },
+    // Thêm sản phẩm khác tại đây...
+  ];
+
+  // Giỏ hàng tạm thời
+  let cart = [];
+
+  function addToCart(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    if (product.stock > 0) {
+      // Trừ số lượng
+      product.stock -= 1;
+
+      // Kiểm tra sản phẩm đã có trong giỏ chưa
+      const cartItem = cart.find(item => item.id === productId);
+      if (cartItem) {
+        cartItem.quantity += 1;
+      } else {
+        cart.push({ ...product, quantity: 1 });
+      }
+
+      // Cập nhật giao diện
+      updateProductDisplay();
+      updateCartDisplay();
+    } else {
+      alert("Sản phẩm đã hết hàng!");
+    }
+  }
+
+  function updateProductDisplay() {
+    products.forEach(product => {
+      const stockElement = document.getElementById(stock-${product.id});
+      if (stockElement) {
+        stockElement.textContent = Còn lại: ${product.stock};
+      }
+    });
+  }
+
+  function updateCartDisplay() {
+    const cartContainer = document.getElementById("cartItems");
+    cartContainer.innerHTML = "";
+
+    if (cart.length === 0) {
+      cartContainer.innerHTML = "<p>Giỏ hàng đang trống.</p>";
+    } else {
+      cart.forEach(item => {
+        const div = document.createElement("div");
+        div.textContent = ${item.name} - SL: ${item.quantity};
+        cartContainer.appendChild(div);
+      });
+    }
+  }
+
+  // Khởi tạo sản phẩm khi load trang
+  document.addEventListener("DOMContentLoaded", () => {
+    updateProductDisplay();
+  });
+  function showPrice(productName, price) {
+    document.getElementById("productPrice").innerHTML = productName + ": " + price;
+  }
+</script>
 </html>
-
-
-
