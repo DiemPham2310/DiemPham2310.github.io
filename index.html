@@ -4,8 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HOÀNG HẠ CÀ MAU</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
 </head>
 <body>
   <header>
@@ -15,11 +13,21 @@
 
   <nav>
     <ul>
-      <li><a href="#">DANH MỤC SẢN PHẨM</a>
+      <li><a href="#">Chuyên mục</a>
         <div class="menu-dropdown">
           <a href="#" onclick="showPrice('Tôm khô', 'Giá: 1.400.000 VNĐ/kg')">Tôm khô</a>
-          <a href="#" onclick="showPrice('Khô Cá Lù Đù trung nhỏ', 'Giá: 130.000 VNĐ/kg')">Khô Cá Lù Đù trung nhỏ</a>
-          <!-- Thêm các sản phẩm khác tơi đây -->
+          <a href="#" onclick="showPrice('Khô Cá Lù Đù trung nhỏ', 'Giá: 130.000 VNĐ/kg')">Khô Cá Lù Đù</a>
+          <a href="#" onclick="showPrice('Khô Cá Lù Đù', 'Giá: 150.000 VNĐ/kg')">Khô Cá Lù Đù</a>
+          <a href="#" onclick="showPrice('Khô Cá Phèn', 'Giá: 150.000 VNĐ/kg')">Khô Cá Phèn</a>
+          <a href="#" onclick="showPrice('Khô Bổi lạt', 'Giá: 250.000 VNĐ/kg')">Khô Bổi lạt</a>
+          <a href="#" onclick="showPrice('Khô Khoai trung nhỏ', 'Giá: 300.000 VNĐ/kg')">Khô Khoai trung nhỏ</a>
+          <a href="#" onclick="showPrice('Khô Đù bông', 'Giá: 165.000 VNĐ/kg')">Khô Đù bông</a>
+          <a href="#" onclick="showPrice('Khô Cá Úc nhỏ', 'Giá: 125.000 VNĐ/kg')">Khô Cá Úc nhỏ</a>
+          <a href="#" onclick="showPrice('Khô Cá Úc lớn', 'Giá: 150.000 VNĐ/kg')">Khô Cá Úc lớn</a>
+          <a href="#" onclick="showPrice('Ba khía muối nguyên con', 'Giá: 120.000 VNĐ/gói')">Ba khía muối nguyên con</a>
+          <a href="#" onclick="showPrice('Ba khía muối trộn sẵn', 'Giá: 170.000 VNĐ/gói')">Ba khía muối trộn sẵn</a>
+          <a href="#" onclick="showPrice('Mắm Tôm', 'Giá: 140.000 VNĐ/kg')">Mắm Tôm</a>
+          <a href="#" onclick="showPrice('Mắm Cá Phi', 'Giá: 100.000 VNĐ/kg')">Mắm Cá Phi</a>
         </div>
       </li>
       <li><a href="#">Trang chủ</a></li>
@@ -33,15 +41,40 @@
     <p>Bán các sản phẩm nông sản sạch - tươi - ngon.</p>
     <p id="productPrice">Chọn một chuyên mục để xem giá sản phẩm.</p>
     <div class="product-grid">
-      <!-- Thêm các sản phẩm ở đây -->
+    <div class="product-card">
+      <img src="https://i.postimg.cc/Rhg75tLV/MAM-CA-SON.jpg" alt="Mắm cá sơn">
+      <div class="product-name">Mắm cá sơn</div>
+      <div class="product-price">100.000 VNĐ/kg</div>
+      <div id="stock-1" class="product-stock">Còn lại: 20 sản phẩm</div>
+      <button onclick="addToCart(1)">Thêm vào giỏ</button>
+      <button onclick="alert('Vui lòng liên hệ: 0944.41.06.41 để đặt hàng')">Mua ngay</button>
     </div>
+    <div class="product-card">
+      <img src="https://i.postimg.cc/hjfxWhTR/S-p-ong.jpg" alt="Mật ong rừng (Ong Mật)">
+      <div class="product-name">Mật ong rừng (Ong Mật)</div>
+      <div class="product-price">450.000 VNĐ/1 lít</div>
+      <div id="stock-2" class="product-stock">Còn lại: 10 sản phẩm</div>
+      <button onclick="addToCart(2)">Thêm vào giỏ</button>
+      <button onclick="alert('Vui lòng liên hệ: 0944.41.06.41 để đặt hàng')">Mua ngay</button>
+    </div>
+
+
+      <!-- Bạn có thể thêm nhiều sản phẩm khác tương tự ở đây -->
+    </div>
+      <div class="chat-container">
+        <h3>🛒 Giỏ hàng của bạn</h3>
+        <div id="cartItems"></div>
+    </div>
+
   </main>
 
   <div class="chat-container">
-    <h3>Hỗ trợ trực tuyến</h3>
-    <textarea placeholder="Gửi câu hỏi tại đây..."></textarea>
-    <button>Gửi</button>
-    <div class="chat-response"></div>
+    <h3>Vui lòng để lại Số điện thoại, Tên, Địa chỉ, Tên loại hàng, Số lượng</h3>
+    <textarea id="message" placeholder="Nhập tin nhắn của bạn tại đây..."></textarea>
+    <br />
+    <button onclick="sendMessage()">Gửi tin nhắn</button>
+    <p class="chat-response" id="chatResponse"></p>
   </div>
-</body>
+
+
 </html>
