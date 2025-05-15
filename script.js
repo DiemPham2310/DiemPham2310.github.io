@@ -49,6 +49,7 @@ const products = [
   { id: 12, name: "Ba khía muối nguyên con", price: 100000, stock: 05 },
   { id: 13, name: "Khô Tôm Đất Cà Mau", price: 1300000, stock: 02 },
   { id: 14, name: "Khô Cá Úc nhỏ", price: 120000, stock: 03 },
+  { id: 15, name: "Khô Cá Lóc non tiêu sọ", price: 250000, stock: 03 },
 ];
 
 // Giỏ hàng
