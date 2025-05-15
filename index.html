@@ -62,7 +62,15 @@
         <button onclick="alert('Vui lòng liên hệ: 0944.41.06.41 để đặt hàng')">Mua ngay</button>
       </div>
     </div>
-
+      <div class="product-card">
+        <img src="https://i.postimg.cc/HkcPv3Zp/DUBONG.jpg" alt="đù bông">
+        <div class="product-name">Đù bông</div>
+        <div class="product-price">165.000 VNĐ/1 kg</div>
+        <div id="stock-3" class="product-stock">Còn lại: 25 sản phẩm</div>
+        <button class="add-to-cart-btn" onclick="addToCart(3)">Thêm vào giỏ</button>
+        <button onclick="alert('Vui lòng liên hệ: 0944.41.06.41 để đặt hàng')">Mua ngay</button>
+      </div>
+    </div>
     <div class="chat-container">
       <h3>🛒 Giỏ hàng của bạn</h3>
       <div id="cartItems"></div>
@@ -89,6 +97,24 @@
 <div class="zalo-chat-widget" data-oaid="725067027452809529" data-welcome-message="Hoàng Hạ Cà Mau xin chào bạn!" data-autopopup="0" data-width="350" data-height="420"></div>
 <script src="https://sp.zalo.me/plugins/sdk.js"></script>
   <script src="script.js"></script>
+<div id="successToast" style="
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(76, 175, 80, 0.95);
+  color: white;
+  padding: 20px 30px;
+  border-radius: 10px;
+  font-size: 18px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+">
+  🎉 Quý khách đã Đặt hàng thành công. Cảm ơn Quý khách đã ủng hộ!
+</div>
+
 </body>
 </html>
 

@@ -37,6 +37,7 @@ function sendMessage() {
 const products = [
   { id: 1, name: "Mắm Cá Sơn", price: 100000, stock: 20 },
   { id: 2, name: "Mật Ong rừng (Ong mật)", price: 450000, stock: 10 },
+  { id: 3, name: "Đù bông", price: 165000, stock: 25 },
 ];
 
 // Giỏ hàng
@@ -187,12 +188,12 @@ function submitOrder() {
   }).join(" | ");
 
   const fullMessage = `
-Khách hàng: ${name}
-SĐT: ${phone}
-Địa chỉ: ${address}
-Sản phẩm: ${orderDetails}
-Ghi chú: ${note}
-Tổng tiền: ${cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toLocaleString()} VNĐ
+    Khách hàng: ${name}
+    SĐT: ${phone}
+    Địa chỉ: ${address}
+    Sản phẩm: ${orderDetails}
+    Ghi chú: ${note}
+    Tổng tiền: ${cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toLocaleString()} VNĐ
   `.trim();
 
   const url = "https://script.google.com/macros/s/AKfycbzqJQZPddWOGcHHLpdMPxRXD17CyyUFLA1DeeiOLKrRP0qeRGqLicqtu2Z4rKaMzDLa/exec";
