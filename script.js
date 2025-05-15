@@ -48,6 +48,7 @@ const products = [
   { id: 11, name: "Thẻ xẻ khô", price: 1000000, stock: 02 },
   { id: 12, name: "Ba khía muối nguyên con", price: 100000, stock: 05 },
   { id: 13, name: "Khô Tôm Đất Cà Mau", price: 1300000, stock: 02 },
+  { id: 14, name: "Khô Cá Úc nhỏ", price: 120000, stock: 03 },
 ];
 
 // Giỏ hàng
