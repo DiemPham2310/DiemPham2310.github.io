@@ -56,42 +56,61 @@ main {
   padding: 20px;
   text-align: center;
 }
+
 .product-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 20px;
-  padding: 20px;
+  justify-content: center; /* hoặc flex-start để canh trái */
+  margin-top: 20px;
 }
+
 .product-card {
-  width: 200px;
-  border: 2px solid #4CAF50;
-  border-radius: 10px;
-  padding: 15px;
-  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 250px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  background-color: #fff;
 }
+
 .product-card img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 5px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
 }
+
 .product-name {
   font-weight: bold;
   margin: 10px 0 5px;
-  color: #2e7d32;
 }
+
 .product-price {
-  color: #d32f2f;
-  font-size: 16px;
+  color: #e91e63;
   margin-bottom: 5px;
 }
+
 .product-stock {
+  font-size: 0.9em;
   color: #555;
-  font-size: 14px;
+  margin-bottom: 10px;
 }
+
+.add-to-cart-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 6px 10px;
+  margin: 5px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #45a049;
+}
+
 .chat-container {
   max-width: 500px;
   margin: 40px auto;
@@ -128,4 +147,13 @@ main {
 .chat-response {
   margin-top: 10px;
   color: green;
+}
+#orderForm input,
+#orderForm textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
