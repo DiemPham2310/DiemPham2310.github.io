@@ -52,6 +52,7 @@ const products = [
   { id: 15, name: "Khô Cá Lóc non tiêu sọ", price: 250000, stock: 03 },
   { id: 16, name: "Khô Cá Khoai lớn", price: 350000, stock: 02 },
   { id: 17, name: "Mắm Cá Phi Cà Mau", price: 105000, stock: 05 },
+  { id: 18, name: "Khô cá Úc lớn", price: 150000, stock: 03 },
 ];
 
 // Giỏ hàng
