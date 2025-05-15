@@ -204,11 +204,11 @@ Tổng tiền: ${cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
     body: formData
   })
     .then(() => {
-      status.style.color = "green";
-      status.textContent = "🎉 Đơn hàng đã được gửi! Chúng tôi sẽ liên hệ sớm.";
       clearCart();
       document.getElementById("orderForm").style.display = "none";
+      showSuccessToast(); // 👈 Gọi popup nổi
     })
+
     .catch(() => {
       status.style.color = "red";
       status.textContent = "❌ Gửi đơn hàng thất bại. Vui lòng thử lại sau.";
@@ -239,6 +239,15 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+function showSuccessToast() {
+  const toast = document.getElementById("successToast");
+  if (toast) {
+    toast.style.display = "block";
+    setTimeout(() => {
+      toast.style.display = "none";
+    }, 3000); // 3 giây
+  }
+}
 
 
 
