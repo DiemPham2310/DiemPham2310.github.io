@@ -8,13 +8,14 @@
 </head>
 <body>
   <header>
-    <h1>Hoàng Hạ Cà Mau chào các bạn!</h1>
+    <h1>HOÀNG HẠ CÀ MAU</h1>
     <p>Chuyên bán các mặt hàng nông sản sạch tại CÀ MAU, 100% nuôi tự nhiên</p>
   </header>
-  <script src="script.js"></script>
+
   <nav>
     <ul>
-      <li><a href="#">Danh mục SẢN PHẨM</a>
+      <li>
+        <a href="#">Danh mục SẢN PHẨM</a>
         <div class="menu-dropdown">
           <a href="#" onclick="showPrice('Tôm khô', 'Giá: 1.400.000 VNĐ/kg')">Tôm khô</a>
           <a href="#" onclick="showPrice('Khô Cá Lù Đù trung nhỏ', 'Giá: 130.000 VNĐ/kg')">Khô Cá Lù Đù</a>
@@ -41,32 +42,31 @@
     <h2>Chào mừng đến với cửa hàng Hoàng Hạ</h2>
     <p>Bán các sản phẩm nông sản sạch - tươi - ngon.</p>
     <p id="productPrice">Chọn một chuyên mục để xem giá sản phẩm.</p>
+
     <div class="product-grid">
-    <div class="product-card">
-      <img src="https://i.postimg.cc/Rhg75tLV/MAM-CA-SON.jpg" alt="Mắm cá sơn">
-      <div class="product-name">Mắm cá sơn</div>
-      <div class="product-price">100.000 VNĐ/kg</div>
-      <div id="stock-1" class="product-stock">Còn lại: 20 sản phẩm</div>
-      <button onclick="addToCart(1)">Thêm vào giỏ</button>
-      <button onclick="alert('Vui lòng liên hệ: 0944.41.06.41 để đặt hàng')">Mua ngay</button>
-    </div>
-    <div class="product-card">
-      <img src="https://i.postimg.cc/hjfxWhTR/S-p-ong.jpg" alt="Mật ong rừng (Ong Mật)">
-      <div class="product-name">Mật ong rừng (Ong Mật)</div>
-      <div class="product-price">450.000 VNĐ/1 lít</div>
-      <div id="stock-2" class="product-stock">Còn lại: 10 sản phẩm</div>
-      <button onclick="addToCart(2)">Thêm vào giỏ</button>
-      <button onclick="alert('Vui lòng liên hệ: 0944.41.06.41 để đặt hàng')">Mua ngay</button>
+      <div class="product-card">
+        <img src="https://i.postimg.cc/Rhg75tLV/MAM-CA-SON.jpg" alt="Mắm cá sơn">
+        <div class="product-name">Mắm cá sơn</div>
+        <div class="product-price">100.000 VNĐ/kg</div>
+        <div id="stock-1" class="product-stock">Còn lại: 20 sản phẩm</div>
+        <button class="add-to-cart-btn" onclick="addToCart(1)">Thêm vào giỏ</button>
+        <button onclick="alert('Vui lòng liên hệ: 0944.41.06.41 để đặt hàng')">Mua ngay</button>
+      </div>
+
+      <div class="product-card">
+        <img src="https://i.postimg.cc/hjfxWhTR/S-p-ong.jpg" alt="Mật ong rừng (Ong Mật)">
+        <div class="product-name">Mật ong rừng (Ong Mật)</div>
+        <div class="product-price">450.000 VNĐ/1 lít</div>
+        <div id="stock-2" class="product-stock">Còn lại: 10 sản phẩm</div>
+        <button class="add-to-cart-btn" onclick="addToCart(2)">Thêm vào giỏ</button>
+        <button onclick="alert('Vui lòng liên hệ: 0944.41.06.41 để đặt hàng')">Mua ngay</button>
+      </div>
     </div>
 
-
-      <!-- Bạn có thể thêm nhiều sản phẩm khác tương tự ở đây -->
+    <div class="chat-container">
+      <h3>🛒 Giỏ hàng của bạn</h3>
+      <div id="cartItems"></div>
     </div>
-      <div class="chat-container">
-        <h3>🛒 Giỏ hàng của bạn</h3>
-        <div id="cartItems"></div>
-    </div>
-
   </main>
 
   <div class="chat-container">
@@ -76,4 +76,15 @@
     <button onclick="sendMessage()">Gửi tin nhắn</button>
     <p class="chat-response" id="chatResponse"></p>
   </div>
+
+  <footer style="text-align:center; margin: 40px 0;">
+    <a href="https://zalo.me/0974084411" target="_blank" style="color:#4CAF50; text-decoration: none; font-weight: bold;">
+      💬 Liên hệ Zalo: 0974084411
+    </a>
+  </footer>
+<!-- Nút chat Zalo -->
+<div class="zalo-chat-widget" data-oaid="725067027452809529" data-welcome-message="Hoàng Hạ Cà Mau xin chào bạn!" data-autopopup="0" data-width="350" data-height="420"></div>
+<script src="https://sp.zalo.me/plugins/sdk.js"></script>
+  <script src="script.js"></script>
+</body>
 </html>
