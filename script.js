@@ -39,6 +39,7 @@ const products = [
   { id: 2, name: "Mật Ong rừng (Ong mật)", price: 450000, stock: 10 },
   { id: 3, name: "Đù bông", price: 165000, stock: 25 },
   { id: 4, name: "Khoai trung nhỏ", price: 300000, stock: 18 },
+  { id: 5, name: "Khô Mối tẩm", price: 185000, stock: 16 },
 ];
 
 // Giỏ hàng
