@@ -40,6 +40,7 @@ const products = [
   { id: 3, name: "Đù bông", price: 165000, stock: 25 },
   { id: 4, name: "Khoai trung nhỏ", price: 300000, stock: 18 },
   { id: 5, name: "Khô Mối tẩm", price: 185000, stock: 16 },
+  { id: 6, name: "Khô Bổi lạt", price: 250000, stock: 15 },
 ];
 
 // Giỏ hàng
