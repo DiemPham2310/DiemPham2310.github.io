@@ -14,7 +14,7 @@ function sendMessage() {
     return;
   }
 
-  const url = "https://script.google.com/macros/s/AKfycbzqJQZPddWOGcHHLpdMPxRXD17CyyUFLA1DeeiOLKrRP0qeRGqLicqtu2Z4rKaMzDLa/exec";
+  const url = "https://script.google.com/macros/s/AKfycbzwvfDAs4TRbx0DdCxx8cfMfDMDWQZHhkCy6uuyanU_8gcWkvEOUVC8I1dUdZG6GleK/exec";
   const formData = new FormData();
   formData.append("message", message);
 
