@@ -64,7 +64,7 @@ function addToCart(productId) {
   }
 }
 
-// Cập nhật số lượng tồn kho
+// Cập nhật hiển thị tồn kho
 function updateProductDisplay() {
   products.forEach(product => {
     const stockElement = document.getElementById(`stock-${product.id}`);
@@ -215,7 +215,19 @@ Tổng tiền: ${cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
     });
 }
 
-// Khi trang đã tải xong
+// Thông báo nhẹ khi thêm sản phẩm vào giỏ (thay cho alert)
+function showNotification(message) {
+  const note = document.getElementById("notification");
+  if (note) {
+    note.textContent = message;
+    note.style.display = "block";
+    setTimeout(() => {
+      note.style.display = "none";
+    }, 2000);
+  }
+}
+
+// Khởi động sau khi trang đã load
 document.addEventListener("DOMContentLoaded", function () {
   updateProductDisplay();
 
@@ -223,7 +235,7 @@ document.addEventListener("DOMContentLoaded", function () {
     btn.addEventListener("click", function () {
       const productCard = btn.closest(".product-card");
       const productName = productCard.querySelector(".product-name").innerText;
-      alert(`Đã thêm "${productName}" vào giỏ hàng!`);
+      showNotification(`Đã thêm "${productName}" vào giỏ hàng!`);
     });
   });
 });
