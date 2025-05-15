@@ -154,11 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Gán sự kiện click cho danh mục
-  document.querySelectorAll("nav ul li a").forEach(function (link) {
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
-    });
-  });
+
 });
 
 
