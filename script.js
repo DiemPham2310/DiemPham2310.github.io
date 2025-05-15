@@ -3,7 +3,7 @@ function showPrice(name, price) {
   document.getElementById("productPrice").textContent = `${name}: ${price}`;
 }
 
-// Gửi tin nhắn đặt hàng
+// Gửi tin nhắn đơn giản
 function sendMessage() {
   const message = document.getElementById("message").value.trim();
   const response = document.getElementById("chatResponse");
@@ -15,7 +15,6 @@ function sendMessage() {
   }
 
   const url = "https://script.google.com/macros/s/AKfycbzqJQZPddWOGcHHLpdMPxRXD17CyyUFLA1DeeiOLKrRP0qeRGqLicqtu2Z4rKaMzDLa/exec";
-
   const formData = new FormData();
   formData.append("message", message);
 
@@ -38,7 +37,6 @@ function sendMessage() {
 const products = [
   { id: 1, name: "Mắm Cá Sơn", price: 100000, stock: 20 },
   { id: 2, name: "Mật Ong rừng (Ong mật)", price: 450000, stock: 10 },
-  // Thêm sản phẩm khác tại đây nếu muốn
 ];
 
 // Giỏ hàng
@@ -66,7 +64,7 @@ function addToCart(productId) {
   }
 }
 
-// Cập nhật hiển thị số lượng còn lại
+// Cập nhật số lượng tồn kho
 function updateProductDisplay() {
   products.forEach(product => {
     const stockElement = document.getElementById(`stock-${product.id}`);
@@ -76,7 +74,7 @@ function updateProductDisplay() {
   });
 }
 
-// Cập nhật hiển thị giỏ hàng
+// Cập nhật giỏ hàng
 function updateCartDisplay() {
   const cartContainer = document.getElementById("cartItems");
   cartContainer.innerHTML = "";
@@ -105,17 +103,40 @@ function updateCartDisplay() {
     </div>`;
   }
 
-  // Nút làm mới luôn hiển thị
   content += `
     <button onclick="clearCart()" style="margin-top: 10px; background-color: #4CAF50; color: #fff; padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer;">
       🔄 Làm mới giỏ hàng
     </button>
+
+    <button onclick="showOrderForm()" style="margin-top: 10px; margin-left: 10px; background-color: #f57c00; color: #fff; padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer;">
+      📦 Đặt hàng
+    </button>
+
+    <div id="orderForm" style="display:none; margin-top:20px; text-align:left;">
+      <label>👤 Tên của Quý Khách:</label><br/>
+      <input type="text" id="customerName" style="width:100%; padding:5px; margin-bottom:5px;"><br/>
+
+      <label>📞 Số điện thoại:</label><br/>
+      <input type="text" id="customerPhone" style="width:100%; padding:5px; margin-bottom:5px;"><br/>
+
+      <label>📍 Địa chỉ:</label><br/>
+      <input type="text" id="customerAddress" style="width:100%; padding:5px; margin-bottom:5px;"><br/>
+
+      <label>📝 Ghi chú (tuỳ chọn):</label><br/>
+      <textarea id="customerNote" style="width:100%; height:80px; padding:5px;"></textarea><br/>
+
+      <button onclick="submitOrder()" style="margin-top:10px; background-color: #388e3c; color:#fff; padding:8px 16px; border:none; border-radius:5px;">
+        ✅ Xác nhận Đặt hàng
+      </button>
+
+      <p id="orderStatus" style="margin-top:10px;"></p>
+    </div>
   `;
 
   cartContainer.innerHTML = content;
 }
 
-
+// Xoá sản phẩm khỏi giỏ
 function removeFromCart(productId) {
   const product = products.find(p => p.id === productId);
   const cartIndex = cart.findIndex(item => item.id === productId);
@@ -129,6 +150,7 @@ function removeFromCart(productId) {
   }
 }
 
+// Làm mới giỏ hàng
 function clearCart() {
   cart.forEach(item => {
     const product = products.find(p => p.id === item.id);
@@ -139,12 +161,64 @@ function clearCart() {
   updateCartDisplay();
 }
 
+// Hiện form đặt hàng
+function showOrderForm() {
+  document.getElementById("orderForm").style.display = "block";
+}
 
-// Khi trang được tải xong
+// Gửi đơn hàng đến Google Sheets
+function submitOrder() {
+  const name = document.getElementById("customerName").value.trim();
+  const phone = document.getElementById("customerPhone").value.trim();
+  const address = document.getElementById("customerAddress").value.trim();
+  const note = document.getElementById("customerNote").value.trim();
+  const status = document.getElementById("orderStatus");
+
+  if (!name || !phone || !address) {
+    status.style.color = "red";
+    status.textContent = "Vui lòng điền đầy đủ Tên, Số điện thoại và Địa chỉ!";
+    return;
+  }
+
+  const orderDetails = cart.map(item => {
+    const unit = item.name.toLowerCase().includes("mật ong") ? "lít" : "kg";
+    const quantity = unit === "lít" ? item.quantity : item.quantity * 0.5;
+    return `${item.name} - ${quantity} ${unit}`;
+  }).join(" | ");
+
+  const fullMessage = `
+Khách hàng: ${name}
+SĐT: ${phone}
+Địa chỉ: ${address}
+Sản phẩm: ${orderDetails}
+Ghi chú: ${note}
+Tổng tiền: ${cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toLocaleString()} VNĐ
+  `.trim();
+
+  const url = "https://script.google.com/macros/s/AKfycbzqJQZPddWOGcHHLpdMPxRXD17CyyUFLA1DeeiOLKrRP0qeRGqLicqtu2Z4rKaMzDLa/exec";
+  const formData = new FormData();
+  formData.append("message", fullMessage);
+
+  fetch(url, {
+    method: "POST",
+    body: formData
+  })
+    .then(() => {
+      status.style.color = "green";
+      status.textContent = "🎉 Đơn hàng đã được gửi! Chúng tôi sẽ liên hệ sớm.";
+      clearCart();
+      document.getElementById("orderForm").style.display = "none";
+    })
+    .catch(() => {
+      status.style.color = "red";
+      status.textContent = "❌ Gửi đơn hàng thất bại. Vui lòng thử lại sau.";
+    });
+}
+
+// Khi trang đã tải xong
 document.addEventListener("DOMContentLoaded", function () {
   updateProductDisplay();
 
-  // Gán sự kiện cho các nút "Thêm vào giỏ"
   document.querySelectorAll(".add-to-cart-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
       const productCard = btn.closest(".product-card");
@@ -152,9 +226,7 @@ document.addEventListener("DOMContentLoaded", function () {
       alert(`Đã thêm "${productName}" vào giỏ hàng!`);
     });
   });
-
-  // Gán sự kiện click cho danh mục
-
 });
+
 
 
