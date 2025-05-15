@@ -46,6 +46,7 @@ const products = [
   { id: 9, name: "Khô Tôm Bạc Đất", price: 700000, stock: 05 },
   { id: 10, name: "Mắm tôm thượng hạng", price: 140000, stock: 10 },
   { id: 11, name: "Thẻ xẻ khô", price: 1000000, stock: 02 },
+  { id: 12, name: "Ba khía muối nguyên con", price: 100000, stock: 05 },
 ];
 
 // Giỏ hàng
