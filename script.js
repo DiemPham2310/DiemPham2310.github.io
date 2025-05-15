@@ -41,6 +41,7 @@ const products = [
   { id: 4, name: "Khoai trung nhỏ", price: 300000, stock: 18 },
   { id: 5, name: "Khô Mối tẩm", price: 185000, stock: 16 },
   { id: 6, name: "Khô Bổi lạt", price: 250000, stock: 15 },
+  { id: 7, name: "Ba khía muối trộn sẵn", price: 175000, stock: 15 },
 ];
 
 // Giỏ hàng
