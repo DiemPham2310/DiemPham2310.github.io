@@ -157,7 +157,6 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll("nav ul li a").forEach(function (link) {
     link.addEventListener("click", function (e) {
       e.preventDefault();
-      alert(`Bạn đã chọn danh mục: ${link.innerText}`);
     });
   });
 });
