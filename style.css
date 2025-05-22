@@ -158,3 +158,12 @@ main {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+@media (max-width: 768px) {
+  .product-grid {
+    justify-content: center;
+  }
+
+  .product-card {
+    width: calc(50% - 20px); /* 2 sản phẩm mỗi hàng, trừ khoảng cách */
+  }
+}
