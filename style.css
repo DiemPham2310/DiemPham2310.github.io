@@ -158,13 +158,16 @@ main {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-/* Hiển thị 2 sản phẩm mỗi hàng trên điện thoại */
 @media (max-width: 768px) {
   .product-grid {
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
   }
 
   .product-card {
-    width: calc(50% - 20px);
+    width: 48%;
+    margin: 1%;
   }
 }
+
