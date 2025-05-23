@@ -1,25 +1,29 @@
-html, body, * {
+html, body, * { 
   box-sizing: border-box;
 }
 
 * {
   box-sizing: border-box;
 }
+
 body {
   font-family: sans-serif;
   margin: 0;
   padding: 0;
 }
+
 header {
   background-color: #4CAF50;
   color: white;
   padding: 15px;
   text-align: center;
 }
+
 nav {
   background-color: #2e7d32;
   padding: 10px;
 }
+
 nav ul {
   list-style-type: none;
   margin: 0;
@@ -27,18 +31,22 @@ nav ul {
   display: flex;
   flex-wrap: wrap;
 }
+
 nav ul li {
   position: relative;
 }
+
 nav ul li a {
   display: block;
   color: white;
   padding: 10px 20px;
   text-decoration: none;
 }
+
 nav ul li a:hover {
   background-color: #66bb6a;
 }
+
 .menu-dropdown {
   display: none;
   position: absolute;
@@ -48,17 +56,21 @@ nav ul li a:hover {
   left: 0;
   z-index: 1;
 }
+
 .menu-dropdown a {
   color: black;
   padding: 10px 20px;
   display: block;
 }
+
 .menu-dropdown a:hover {
   background-color: #eee;
 }
+
 nav ul li:hover .menu-dropdown {
   display: block;
 }
+
 main {
   padding: 20px;
   text-align: center;
@@ -68,14 +80,14 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  justify-content: center; /* hoặc flex-start để canh trái */
-  margin-top: 20px;
+  justify-content: center;
   margin: 0 auto;
   padding: 0;
 }
 
 .product-card {
-  width: 220px;
+  width: 100%;
+  max-width: 220px;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 10px;
@@ -129,10 +141,12 @@ main {
   border-radius: 10px;
   background-color: #f9f9f9;
 }
+
 .chat-container h3 {
   margin-top: 0;
   color: #2e7d32;
 }
+
 .chat-container textarea {
   width: 100%;
   height: 100px;
@@ -142,6 +156,7 @@ main {
   border-radius: 5px;
   font-family: inherit;
 }
+
 .chat-container button {
   margin-top: 10px;
   padding: 10px 20px;
@@ -151,13 +166,16 @@ main {
   border-radius: 5px;
   cursor: pointer;
 }
+
 .chat-container button:hover {
   background-color: #45a049;
 }
+
 .chat-response {
   margin-top: 10px;
   color: green;
 }
+
 #orderForm input,
 #orderForm textarea {
   width: 100%;
@@ -167,30 +185,27 @@ main {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-.product-card {
-  width: 100%;
-  max-width: 220px;
-  ...
-}
 
+/* Responsive: 2 sản phẩm / hàng trên điện thoại và tablet */
 @media (max-width: 768px) {
   .product-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    width: 46%;
-    margin: 1%;
+    margin: 0 auto;
+    gap: 10px;
   }
 
   .product-card {
-    width: 46%;
+    width: 48%;
     margin: 1%;
-    max-width: none; /* thêm dòng này */
+    max-width: none;
   }
 }
+
 @media (max-width: 480px) {
   .product-card {
-    width: 46%;
-    margin: 1px 0;
+    width: 48%;
+    margin: 1%;
   }
 }
