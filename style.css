@@ -189,6 +189,6 @@ main {
 @media (max-width: 480px) {
   .product-card {
     width: 46%;
-    margin: 5px 0;
+    margin: 1px 0;
   }
 }
