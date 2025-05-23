@@ -1,3 +1,7 @@
+html, body, * {
+  box-sizing: border-box;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -66,6 +70,8 @@ main {
   gap: 20px;
   justify-content: center; /* hoặc flex-start để canh trái */
   margin-top: 20px;
+  margin: 0 auto;
+  padding: 0;
 }
 
 .product-card {
@@ -175,7 +181,14 @@ main {
   }
 
   .product-card {
-    width: 48%;
+    width: 46%;
     margin: 1%;
+    max-width: none; /* thêm dòng này */
+  }
+}
+@media (max-width: 480px) {
+  .product-card {
+    width: 100%;
+    margin: 5px 0;
   }
 }
