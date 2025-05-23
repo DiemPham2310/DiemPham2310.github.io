@@ -178,6 +178,8 @@ main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    width: 46%;
+    margin: 1%;
   }
 
   .product-card {
